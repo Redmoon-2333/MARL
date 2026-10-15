@@ -1,0 +1,43 @@
+name: Verify MARL exercises
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      MPLBACKEND: Agg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r requirements.txt
+          python -m ipykernel install --user --name python3
+      - name: Check notebooks, scripts and links
+        run: |
+          python -m unittest discover -s tests
+          python scripts/marl.py check
+      - name: Execute all eight exercises
+        run: python scripts/marl.py run all --engine script --output runs/ci
+      - name: Execute recurrent communication notebook
+        run: python scripts/marl.py run recurrent-communication --engine notebook --output runs/notebook
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: marl-cpu-results
+          path: runs/
+          if-no-files-found: ignore

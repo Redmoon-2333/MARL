@@ -1,0 +1,1121 @@
+{
+  "verified_on": "2026-10-16",
+  "python": "3.13.5",
+  "torch": "2.11.0+cpu",
+  "device": "cpu",
+  "hash_encoding": "UTF-8 text with LF line endings, matching Git blobs",
+  "checks_per_engine": 291,
+  "maintenance_tests": 4,
+  "script_and_notebook_summaries_match": true,
+  "exercises": [
+    {
+      "exercise": "ctde",
+      "source": "Day6/11_CTDE_dataflow_test.ipynb",
+      "source_sha256": "4d5e73b2c6a8726170a3ad6c2a50b95ed41a119e8ba6d8863831e8ed76d69d82",
+      "script_sha256": "b34fcb919b58ffe52518d9cd4cebe006129fb08b34ae0ddd814c05285fabb72d",
+      "checks_passed": 32,
+      "duration_seconds": {
+        "script": 4.574,
+        "notebook": 7.793
+      },
+      "summary": {
+        "checks_passed": 32,
+        "checks_total": 32,
+        "before_values": [
+          0.20000000298023224,
+          0.20000000298023224,
+          0.30000001192092896
+        ],
+        "after_values": [
+          0.25,
+          0.2549999952316284,
+          0.375
+        ],
+        "before_critic_loss": 2.18999981880188,
+        "after_critic_loss": 2.082716703414917,
+        "actor_0_probs": [
+          [
+            0.503125011920929,
+            0.4968750476837158
+          ],
+          [
+            0.4956251084804535,
+            0.5043749213218689
+          ],
+          [
+            0.4987499713897705,
+            0.5012499690055847
+          ]
+        ],
+        "actor_1_probs": [
+          [
+            0.5043749213218689,
+            0.4956251084804535
+          ],
+          [
+            0.49625006318092346,
+            0.5037499070167542
+          ],
+          [
+            0.5043749213218689,
+            0.4956251084804535
+          ]
+        ],
+        "execution_critic_calls": 0
+      }
+    },
+    {
+      "exercise": "mappo",
+      "source": "Day6/12_MAPPO_training_test.ipynb",
+      "source_sha256": "1a2ba0a05a8e9cb06a01dd3173b163390eb406652ec358478d20a900613d33ad",
+      "script_sha256": "7bb756cf8eb293d27ca6d2be0774860d60fefd5a6fad6ddd2d392845d7efc056",
+      "checks_passed": 56,
+      "duration_seconds": {
+        "script": 7.857,
+        "notebook": 9.769
+      },
+      "summary": {
+        "checks": [
+          "all sixteen state-action transitions",
+          "initial exact cooperation probability",
+          "initial actual critic is zero",
+          "collection does not train parameters",
+          "one shared batch of complete episodes",
+          "two local observation shapes",
+          "central state shape",
+          "two actual actions and two old probabilities",
+          "all sampled episodes truly terminate",
+          "local observations match same-row initial bits",
+          "central input matches initial not final state",
+          "actual actions produce saved final bits",
+          "shared rewards are not doubled",
+          "old snapshots and targets have no gradients",
+          "single terminal advantage",
+          "critic target keeps return scale",
+          "agent 0 uses its own probability ratio",
+          "agent 1 uses its own probability ratio",
+          "clip value 1.4/0.4",
+          "clip gradient 1.4/0.4",
+          "clip value 0.6/0.4",
+          "clip gradient 0.6/0.4",
+          "clip value 0.6/-0.4",
+          "clip gradient 0.6/-0.4",
+          "clip value 1.4/-0.4",
+          "clip gradient 1.4/-0.4",
+          "fixed actor scores do not train critic",
+          "actors.0.weight receives a nonzero gradient",
+          "actors.1.weight receives a nonzero gradient",
+          "critic.weight receives a nonzero gradient",
+          "actors.0.weight actually changed during training",
+          "actors.1.weight actually changed during training",
+          "critic.weight actually changed during training",
+          "whole-row permutation preserves loss",
+          "KL gate stops further updates",
+          "all outer training batches recorded",
+          "fresh complete episodes per batch",
+          "one environment step per complete episode",
+          "agent actions counted separately",
+          "bounded optimizer updates",
+          "all three models have finite parameters",
+          "all recorded training metrics finite",
+          "exact cooperation improves above .95",
+          "critic tracks all four current policy values",
+          "separate frozen evaluation episodes",
+          "evaluation parameters unchanged",
+          "execution makes no critic calls",
+          "critic counter is calibrated",
+          "all evaluation episodes truly terminate",
+          "greedy evaluation covers all initial states",
+          "all four greedy paths achieve cooperation",
+          "sample success rate above .90",
+          "sample return matches team success count",
+          "sample mean close to exact expectation",
+          "changing teammate input leaves actor 0 input unchanged",
+          "teammate input intervention actually changes actor 1 input"
+        ],
+        "initial": {
+          "success_probability": 0.5,
+          "expected_return": 1.0,
+          "policy_0": [
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.5,
+              0.5
+            ]
+          ],
+          "policy_1": [
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.5,
+              0.5
+            ]
+          ],
+          "true_values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "predicted_values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "value_error": 1.0
+        },
+        "final": {
+          "success_probability": 0.9969121258718587,
+          "expected_return": 1.9938242517437175,
+          "policy_0": [
+            [
+              0.002198898233473301,
+              0.9978011250495911
+            ],
+            [
+              0.9990002512931824,
+              0.000999755458906293
+            ]
+          ],
+          "policy_1": [
+            [
+              0.0019508600234985352,
+              0.9980491399765015
+            ],
+            [
+              0.9989641904830933,
+              0.001035752589814365
+            ]
+          ],
+          "true_values": [
+            1.9917176926064712,
+            1.9935397160475077,
+            1.9941066172118553,
+            1.9959329811090356
+          ],
+          "predicted_values": [
+            2.0057764053344727,
+            1.992539882659912,
+            1.9703607559204102,
+            1.9902797937393188
+          ],
+          "value_error": 0.02374586129144518
+        },
+        "episodes": 7680,
+        "environment_steps": 7680,
+        "agent_actions": 15360,
+        "optimizer_steps": 480,
+        "evaluation_successes": 496,
+        "evaluation_count": 500,
+        "evaluation_mean": 1.984,
+        "greedy_paths": [
+          {
+            "initial": [
+              0,
+              0
+            ],
+            "actions": [
+              1,
+              1
+            ],
+            "final": [
+              1,
+              1
+            ],
+            "reward": 2.0,
+            "terminated": true
+          },
+          {
+            "initial": [
+              0,
+              1
+            ],
+            "actions": [
+              1,
+              0
+            ],
+            "final": [
+              1,
+              1
+            ],
+            "reward": 2.0,
+            "terminated": true
+          },
+          {
+            "initial": [
+              1,
+              0
+            ],
+            "actions": [
+              0,
+              1
+            ],
+            "final": [
+              1,
+              1
+            ],
+            "reward": 2.0,
+            "terminated": true
+          },
+          {
+            "initial": [
+              1,
+              1
+            ],
+            "actions": [
+              0,
+              0
+            ],
+            "final": [
+              1,
+              1
+            ],
+            "reward": 2.0,
+            "terminated": true
+          }
+        ],
+        "execution_critic_calls": 0,
+        "clip_fraction_max": 0.140625
+      }
+    },
+    {
+      "exercise": "communication",
+      "source": "Day6/13_communication_training_test.ipynb",
+      "source_sha256": "bc4380845e323551b934c1c597493b26072fb9d0c10aec50ea4e240c1cb4d386",
+      "script_sha256": "36e7304999e6d60ee8dbeb08bd25942c5a1482321f6d8d024c5e8526deede38e",
+      "checks_passed": 41,
+      "duration_seconds": {
+        "script": 7.72,
+        "notebook": 10.597
+      },
+      "summary": {
+        "check_count": 41,
+        "checks": [
+          "all eight hint/message/move transitions",
+          "send rejected after termination",
+          "move rejected after termination",
+          "receiver cannot act before a message",
+          "uniform initial success",
+          "collection keeps parameters fixed",
+          "two local observation shapes",
+          "sender input matches hint",
+          "receiver input matches message",
+          "team reward matches actual direction",
+          "single shared detached score",
+          "message phase has no terminal reward",
+          "direction phase truly terminates",
+          "collection counts two steps per joint episode",
+          "receiver loss does not cross discrete message",
+          "sender loss uses its own decision branch",
+          "sender.weight has a nonzero gradient",
+          "receiver.weight has a nonzero gradient",
+          "sender.weight changed during real training",
+          "receiver.weight changed during real training",
+          "whole-row permutation preserves loss",
+          "fresh batches counted",
+          "complete joint episode count",
+          "two environment steps per episode",
+          "finite trained parameters",
+          "finite recorded metrics",
+          "exact evaluators use the same arithmetic",
+          "exact success improves above .95",
+          "erased channel has exact chance success",
+          "inverted channel complements normal success",
+          "joint symbol renaming preserves success",
+          "both greedy episodes reach correct terminal",
+          "all frozen episodes truly terminate",
+          "normal sample success above .90",
+          "normal sample close to exact success",
+          "erased sample close to chance",
+          "evaluation episode and step counts",
+          "hidden hint intervention actually changes hint",
+          "receiver input unchanged when channel is fixed",
+          "receiver input contains only delivered symbol",
+          "all evaluation leaves parameters unchanged"
+        ],
+        "initial": {
+          "success_probability": 0.5,
+          "expected_return": 1.0,
+          "sender_probs": [
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.5,
+              0.5
+            ]
+          ],
+          "receiver_probs": [
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.5,
+              0.5
+            ]
+          ]
+        },
+        "final": {
+          "success_probability": 0.9937934169652989,
+          "expected_return": 1.9875868339305978,
+          "sender_probs": [
+            [
+              0.003348900005221367,
+              0.9966511130332947
+            ],
+            [
+              0.9968056678771973,
+              0.0031943395733833313
+            ]
+          ],
+          "receiver_probs": [
+            [
+              0.0032253910321742296,
+              0.9967746138572693
+            ],
+            [
+              0.9973167777061462,
+              0.0026832406874746084
+            ]
+          ]
+        },
+        "episodes": 19200,
+        "environment_steps": 38400,
+        "optimizer_steps": 300,
+        "evaluation_successes": 499,
+        "evaluation_count": 500,
+        "blocked_successes": 272,
+        "exact_blocked": 0.5000000061790237,
+        "exact_inverted": 0.006206604922296542,
+        "exact_renamed": 0.9937934169652989,
+        "greedy_paths": [
+          {
+            "hint": 0,
+            "message": 1,
+            "received": 1,
+            "move": 0,
+            "reward": 2.0,
+            "terminated": true
+          },
+          {
+            "hint": 1,
+            "message": 0,
+            "received": 0,
+            "move": 1,
+            "reward": 2.0,
+            "terminated": true
+          }
+        ]
+      }
+    },
+    {
+      "exercise": "qmix-update",
+      "source": "Day7/14_QMIX_single_step_update_test.ipynb",
+      "source_sha256": "45af5c3e072e172cc35a1c626f8a5512a6f6d1b3d56aa718184d62722c1adf7f",
+      "script_sha256": "7da222e347fe5365ff4efcacdb22feddc00bf33e7d235581c748cb59924945d4",
+      "checks_passed": 36,
+      "duration_seconds": {
+        "script": 4.519,
+        "notebook": 6.206
+      },
+      "summary": {
+        "checks_passed": 36,
+        "parameter_updates": 1,
+        "target_syncs": 1,
+        "environment_steps": 0,
+        "device": "cpu",
+        "team_q_before": 0.3083003759384155,
+        "team_q_after": 1.1381497383117676,
+        "fixed_td_target": 2.2751550674438477,
+        "loss_before": 3.8685173988342285,
+        "loss_after": 1.292781114578247,
+        "chosen_utility_before": [
+          [
+            0.23464366793632507,
+            -0.007903605699539185
+          ]
+        ],
+        "chosen_utility_after": [
+          [
+            0.6928017139434814,
+            0.04787394404411316
+          ]
+        ],
+        "online_agents_changed": [
+          true,
+          true
+        ],
+        "online_mixer_changed": true,
+        "target_agents_changed_by_step": [
+          false,
+          false
+        ],
+        "target_mixer_changed_by_step": false,
+        "execution_actions": [
+          [
+            0,
+            0
+          ]
+        ],
+        "target_after_sync": 2.9790525436401367
+      }
+    },
+    {
+      "exercise": "qmix",
+      "source": "Day7/15_QMIX_training_test.ipynb",
+      "source_sha256": "f291a1432f8bd67ebbcb8f950cde3383377db555d626033316f5878f3d7fb445",
+      "script_sha256": "f6c7a682ef0a594c2b10916fec82424d466b7e7db69e2547bcc2162d2e8aeb24",
+      "checks_passed": 23,
+      "duration_seconds": {
+        "script": 7.948,
+        "notebook": 10.318
+      },
+      "summary": {
+        "checks_passed": 23,
+        "seed": 7,
+        "device": "cpu",
+        "torch_version": "2.11.0+cpu",
+        "training_episodes": 2000,
+        "training_environment_steps": 4000,
+        "optimizer_updates": 1969,
+        "target_syncs": 19,
+        "replay_size": 4000,
+        "initial_success_rate": 0.0,
+        "final_success_rate": 1.0,
+        "final_reward_mean": 2.0,
+        "final_discounted_mean": 1.9,
+        "sampled_successes": 500,
+        "sampled_episodes": 500,
+        "sampled_environment_steps": 1000,
+        "final_epsilon": 0.09999999999999998,
+        "last_100_training_return": 1.72,
+        "last_50_td_loss": 0.010101464549079538,
+        "evaluation_calls": {
+          "mixer": 0,
+          "target_local": 0
+        },
+        "greedy_traces": [
+          [
+            {
+              "state": [
+                0,
+                0,
+                0
+              ],
+              "actions": [
+                1,
+                1
+              ],
+              "next_state": [
+                1,
+                1,
+                1
+              ],
+              "reward": 1.0,
+              "terminated": false,
+              "desired_bit": 1
+            },
+            {
+              "state": [
+                1,
+                1,
+                1
+              ],
+              "actions": [
+                1,
+                1
+              ],
+              "next_state": [
+                0,
+                0,
+                2
+              ],
+              "reward": 1.0,
+              "terminated": true,
+              "desired_bit": 0
+            }
+          ],
+          [
+            {
+              "state": [
+                0,
+                1,
+                0
+              ],
+              "actions": [
+                1,
+                0
+              ],
+              "next_state": [
+                1,
+                1,
+                1
+              ],
+              "reward": 1.0,
+              "terminated": false,
+              "desired_bit": 1
+            },
+            {
+              "state": [
+                1,
+                1,
+                1
+              ],
+              "actions": [
+                1,
+                1
+              ],
+              "next_state": [
+                0,
+                0,
+                2
+              ],
+              "reward": 1.0,
+              "terminated": true,
+              "desired_bit": 0
+            }
+          ],
+          [
+            {
+              "state": [
+                1,
+                0,
+                0
+              ],
+              "actions": [
+                0,
+                1
+              ],
+              "next_state": [
+                1,
+                1,
+                1
+              ],
+              "reward": 1.0,
+              "terminated": false,
+              "desired_bit": 1
+            },
+            {
+              "state": [
+                1,
+                1,
+                1
+              ],
+              "actions": [
+                1,
+                1
+              ],
+              "next_state": [
+                0,
+                0,
+                2
+              ],
+              "reward": 1.0,
+              "terminated": true,
+              "desired_bit": 0
+            }
+          ],
+          [
+            {
+              "state": [
+                1,
+                1,
+                0
+              ],
+              "actions": [
+                0,
+                0
+              ],
+              "next_state": [
+                1,
+                1,
+                1
+              ],
+              "reward": 1.0,
+              "terminated": false,
+              "desired_bit": 1
+            },
+            {
+              "state": [
+                1,
+                1,
+                1
+              ],
+              "actions": [
+                1,
+                1
+              ],
+              "next_state": [
+                0,
+                0,
+                2
+              ],
+              "reward": 1.0,
+              "terminated": true,
+              "desired_bit": 0
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "exercise": "maddpg",
+      "source": "Day8/16_MADDPG_training_test.ipynb",
+      "source_sha256": "39dec94486f2622e667beb5b9e66f724ef1c83977b04c69f7c3f1aa59ded0d95",
+      "script_sha256": "5963b3103fe046c5f8b4f2a726eb96d993e196cef67ed7ca18eec8ccb6d157bb",
+      "checks_passed": 24,
+      "duration_seconds": {
+        "script": 19.25,
+        "notebook": 21.787
+      },
+      "summary": {
+        "seed": 7,
+        "device": "cpu",
+        "pytorch": "2.11.0+cpu",
+        "training_episodes": 2500,
+        "training_environment_steps": 5000,
+        "joint_updates": 4745,
+        "optimizer_steps": 18980,
+        "target_syncs": 4745,
+        "replay_size": 5000,
+        "initial_mean_gap": 0.8093279889888234,
+        "final_mean_gap": 0.018730927212738696,
+        "initial_mean_reward": -1.3418710396193354,
+        "final_mean_reward": -0.001405086695189038,
+        "final_grid_success_rate": 1.0,
+        "sampled_mean_gap": 0.016862876534461974,
+        "sampled_max_gap": 0.079456627368927,
+        "sampled_mean_reward": -0.001141896331015463,
+        "sampled_successes": 500,
+        "training_last100_reward": -0.03444699654635592,
+        "last50_critic_loss": 0.000199625520981499,
+        "execution_calls": {
+          "critic": 0,
+          "target_actor": 0
+        },
+        "complete_traces": [
+          [
+            {
+              "state": [
+                -1.0,
+                1.0,
+                0
+              ],
+              "actions": [
+                0.4085571765899658,
+                0.36399519443511963
+              ],
+              "reward": -0.0019857702535688304,
+              "terminated": false
+            },
+            {
+              "state": [
+                0.4085571765899658,
+                0.36399519443511963,
+                1
+              ],
+              "actions": [
+                0.45484402775764465,
+                0.43752217292785645
+              ],
+              "reward": -0.00030004665474425707,
+              "terminated": true
+            }
+          ],
+          [
+            {
+              "state": [
+                0.7,
+                -0.3,
+                0
+              ],
+              "actions": [
+                0.36299312114715576,
+                0.4194132089614868
+              ],
+              "reward": -0.0031832263089768276,
+              "terminated": false
+            },
+            {
+              "state": [
+                0.36299312114715576,
+                0.4194132089614868,
+                1
+              ],
+              "actions": [
+                0.4444800913333893,
+                0.45076435804367065
+              ],
+              "reward": -3.949200808595066e-05,
+              "terminated": true
+            }
+          ]
+        ],
+        "checks_passed": 24
+      }
+    },
+    {
+      "exercise": "memory",
+      "source": "Day9/17_Recurrent_MAPPO_memory_test.ipynb",
+      "source_sha256": "a1369b66156a53f64b9e51c10e971ad898904082700bf137972fc8f9414af04a",
+      "script_sha256": "d35be1f61bc261232887834fcdc213b6ed00a9773b0d5e43c668a262ab73b6b2",
+      "checks_passed": 39,
+      "duration_seconds": {
+        "script": 7.703,
+        "notebook": 9.482
+      },
+      "summary": {
+        "seed": 7,
+        "pytorch": "2.11.0+cpu",
+        "device": "cpu",
+        "training_episodes": 10240,
+        "environment_steps": 40960,
+        "agent_actions": 81920,
+        "optimizer_steps": 636,
+        "initial_exact_success": 0.25,
+        "final_exact_success": 0.9998787641525269,
+        "reset_exact_success": 0.2500000298023224,
+        "mlp_exact_success": 0.2499999850988388,
+        "sampled_successes": 500,
+        "sampled_episodes": 500,
+        "greedy_successes": 4,
+        "evaluation_critic_calls": 0,
+        "opening_cue_gradient_l1": 3.291114330291748,
+        "detached_opening_gradient_l1": 0.0,
+        "checks": [
+          "environment completes four real transitions",
+          "waiting transitions have zero reward",
+          "teammate cue does not affect own initial observation",
+          "own initial cue is actually visible",
+          "all cue cases have identical final local observations",
+          "terminal team reward depends on both correct actions",
+          "collecting experience does not update parameters",
+          "local observation batch preserves episode time and agent axes",
+          "paired actual actions and old probabilities",
+          "only WAIT is sampled before decision",
+          "terminal steps stay in data; earlier steps are not terminal",
+          "fixed rollout fields have no gradient",
+          "terminal Critic target equals actual reward",
+          "Critic targets preserve raw advantage and reward units",
+          "GAE recurses backward independently within each episode",
+          "actor 0 full-sequence and stepwise logits agree",
+          "actor 0 hidden shape is layer batch feature",
+          "actor 0 reconstructed old action probabilities agree",
+          "actor 1 full-sequence and stepwise logits agree",
+          "actor 1 hidden shape is layer batch feature",
+          "actor 1 reconstructed old action probabilities agree",
+          "permuting entire episodes preserves loss",
+          "final action loss has a gradient path to the opening cue",
+          "detaching hidden keeps forward values",
+          "detaching hidden cuts the early cue gradient",
+          "two independent actors have separate parameter storage",
+          "actors.0. parameters really updated",
+          "actors.1. parameters really updated",
+          "critic. parameters really updated",
+          "all training episodes run through four environment steps",
+          "finite fresh-batch optimization",
+          "training metrics remain finite",
+          "trained memory policy improves exact task success",
+          "all four cue combinations succeed under greedy execution",
+          "clearing decision memory yields exact quarter success",
+          "memoryless MLP has exact quarter success on balanced cues",
+          "frozen decentralized evaluation does not call Critic",
+          "evaluation changes no learned parameters",
+          "all sampled evaluation episodes reach the fourth terminal step"
+        ],
+        "checks_passed": 39,
+        "complete_trace_cues_0_1": [
+          {
+            "t": 0,
+            "obs": [
+              [
+                1.0,
+                -1.0,
+                0.0
+              ],
+              [
+                1.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "actions": [
+              2,
+              2
+            ],
+            "reward": 0.0,
+            "terminated": false
+          },
+          {
+            "t": 1,
+            "obs": [
+              [
+                0.0,
+                0.0,
+                0.3333333432674408
+              ],
+              [
+                0.0,
+                0.0,
+                0.3333333432674408
+              ]
+            ],
+            "actions": [
+              2,
+              2
+            ],
+            "reward": 0.0,
+            "terminated": false
+          },
+          {
+            "t": 2,
+            "obs": [
+              [
+                0.0,
+                0.0,
+                0.6666666865348816
+              ],
+              [
+                0.0,
+                0.0,
+                0.6666666865348816
+              ]
+            ],
+            "actions": [
+              2,
+              2
+            ],
+            "reward": 0.0,
+            "terminated": false
+          },
+          {
+            "t": 3,
+            "obs": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "actions": [
+              0,
+              1
+            ],
+            "reward": 1.0,
+            "terminated": true
+          }
+        ]
+      }
+    },
+    {
+      "exercise": "recurrent-communication",
+      "source": "Day10/18_Recurrent_communication_test.ipynb",
+      "source_sha256": "16b40d02a92b88bfbfc66a5be2fa0ca7599476960d35e9c434a98ed0d1ffeb96",
+      "script_sha256": "828ac8352959773e1f9ef0a289f54c437b5c60f489a0240e70fc7a5dc95fd4c0",
+      "checks_passed": 40,
+      "duration_seconds": {
+        "script": 9.493,
+        "notebook": 11.302
+      },
+      "summary": {
+        "seed": 7,
+        "pytorch": "2.11.0+cpu",
+        "device": "cpu",
+        "training_episodes": 204800,
+        "environment_steps": 819200,
+        "all_agent_actions_including_wait": 1638400,
+        "free_policy_decisions": 409600,
+        "optimizer_steps": 800,
+        "initial_exact_success": 0.4999995827674866,
+        "final_exact_success": 0.999988317489624,
+        "sender_message1": [
+          0.9999988079071045,
+          1.5113065501282108e-06
+        ],
+        "receiver_right": [
+          [
+            0.999992847442627,
+            1.5030853319331072e-05
+          ],
+          [
+            5.600695203611394e-06,
+            0.9999865293502808
+          ]
+        ],
+        "interventions": {
+          "normal": 0.999988317489624,
+          "erase_message": 0.5,
+          "reset_sender": 0.4999999701976776,
+          "reset_receiver_before_message": 0.5,
+          "reset_receiver_at_choice": 0.4999999701976776
+        },
+        "sampled_successes": 1000,
+        "sampled_episodes": 1000,
+        "greedy_successes": 4,
+        "checks_passed": 40,
+        "checks": [
+          "four real transitions per episode",
+          "collection keeps parameters fixed",
+          "complete episode time agent feature axes",
+          "rollout tensors carry no computation graph",
+          "waiting transitions have zero reward",
+          "only final real transition is terminal",
+          "terminal reward uses actual receiver action and XOR cues",
+          "only the two designated decisions are free",
+          "sender cannot read b",
+          "receiver cannot read a",
+          "each role can see its own initial cue",
+          "cues disappear after opening observation",
+          "message appears only at receiver time two",
+          "delivered message equals the sampled integer",
+          "role 0 stepwise and full replay agree",
+          "role 0 hidden has independent episode axis",
+          "role 0 replay matches collection decision probabilities",
+          "role 1 stepwise and full replay agree",
+          "role 1 hidden has independent episode axis",
+          "role 1 replay matches collection decision probabilities",
+          "receiver loss cannot cross an ordinary integer message",
+          "role 0 own policy loss provides a gradient",
+          "role 1 own policy loss provides a gradient",
+          "whole-episode permutation preserves loss",
+          "exact symmetry has chance success",
+          "exact symmetry has zero expected policy gradient",
+          "weak aligned preferences create a useful direction",
+          "all training batches are fresh and finite",
+          "role 0 parameters really changed",
+          "role 1 parameters really changed",
+          "trained exact success exceeds 0.95",
+          "greedy execution solves all four cue pairs",
+          "erase_message removes necessary information",
+          "reset_sender removes necessary information",
+          "reset_receiver_before_message removes necessary information",
+          "reset_receiver_at_choice removes necessary information",
+          "frozen sampling completes all four steps",
+          "sampled success matches the frozen policy",
+          "evaluation leaves parameters unchanged",
+          "actors have disjoint parameter storage"
+        ],
+        "symmetric_expected_gradient_l1": [
+          0.0,
+          0.0
+        ],
+        "weak_exact_success": 0.5001999735832214,
+        "complete_trace_cues_1_0": [
+          {
+            "t": 0,
+            "obs": [
+              [
+                1.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                -1.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "actions": [
+              2,
+              2
+            ],
+            "reward": 0.0,
+            "terminated": false
+          },
+          {
+            "t": 1,
+            "obs": [
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.3333333432674408
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.3333333432674408
+              ]
+            ],
+            "actions": [
+              0,
+              2
+            ],
+            "reward": 0.0,
+            "terminated": false
+          },
+          {
+            "t": 2,
+            "obs": [
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.6666666865348816
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -1.0,
+                0.6666666865348816
+              ]
+            ],
+            "actions": [
+              2,
+              2
+            ],
+            "reward": 0.0,
+            "terminated": false
+          },
+          {
+            "t": 3,
+            "obs": [
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "actions": [
+              2,
+              1
+            ],
+            "reward": 1.0,
+            "terminated": true
+          }
+        ]
+      }
+    }
+  ]
+}
