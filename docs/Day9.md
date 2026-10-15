@@ -608,4 +608,4 @@ def evaluate_exact(actors, cues, reset_before_choice=False):
 ## 完整代码入口
 
 - [循环 MAPPO 记忆练习](../Day9/17_Recurrent_MAPPO_memory_test.ipynb)
-- [强化学习系列索引](../README.md)
+- [强化学习系列索引](README.md)

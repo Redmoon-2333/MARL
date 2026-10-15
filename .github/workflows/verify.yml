@@ -31,7 +31,7 @@ jobs:
         run: |
           python -m unittest discover -s tests
           python scripts/marl.py check
-      - name: Execute all eight exercises
+      - name: Execute all eighteen exercises
         run: python scripts/marl.py run all --engine script --output runs/ci
       - name: Execute recurrent communication notebook
         run: python scripts/marl.py run recurrent-communication --engine notebook --output runs/notebook

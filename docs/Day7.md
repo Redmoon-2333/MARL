@@ -542,7 +542,7 @@ actions = masked_scores.argmax(dim=-1)
 4. 作者实现 PyMARL：[混合网络](https://github.com/oxwhirl/pymarl/blob/master/src/modules/mixers/qmix.py)、[团队 TD 与序列掩码](https://github.com/oxwhirl/pymarl/blob/master/src/learners/q_learner.py)。本文的小任务使用自己的网络规模与更新计数约定。
 5. Hausknecht & Stone. *Deep Recurrent Q-Learning for Partially Observable MDPs*. 2015，arXiv:1507.06527。[循环 Q 网络](https://arxiv.org/abs/1507.06527)。
 
-[返回强化学习笔记索引](../README.md)
+[返回强化学习笔记索引](README.md)
 
 ## 完整代码入口
 

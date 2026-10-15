@@ -633,4 +633,4 @@ def evaluate(actor_models, initials):
 
 - [两轮连续动作协调训练与保存结果](../Day8/16_MADDPG_training_test.ipynb)
 - [Day8 训练与结果图复现](experiments.md#day8)
-- [系列索引](../README.md)
+- [系列索引](README.md)

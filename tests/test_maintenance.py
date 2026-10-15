@@ -25,6 +25,30 @@ class MaintenanceTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 marl.summarize({"summary": summary}, 2)
 
+    def test_legacy_outputs_are_validated_without_fabricating_a_check_count(self):
+        namespace = {
+            "return_A": 0.76, "return_B": 0.68,
+            "q_learning_target": 0.62, "sarsa_target": 0.08,
+            "q_learning_new": 0.51, "sarsa_new": 0.24,
+        }
+        result = marl.summarize(namespace, None, "greedy")
+        self.assertEqual(result["q_learning_new"], 0.51)
+        self.assertNotIn("checks_passed", result)
+        namespace["q_learning_new"] = 0.4
+        with self.assertRaisesRegex(ValueError, "unexpected q_learning_new"):
+            marl.summarize(namespace, None, "greedy")
+
+    def test_legacy_counted_checks_must_still_match(self):
+        namespace = {
+            "checks": 13, "trajectory": [], "returns": [],
+            "before_probs": FakeTensor(), "after_probs": FakeTensor(),
+            "policy_loss": FakeTensor(), "gradient": FakeTensor(),
+        }
+        with self.assertRaisesRegex(ValueError, "Expected 14"):
+            marl.summarize(namespace, 14, "reinforce-episode")
+        namespace["checks"] = 14
+        self.assertEqual(marl.summarize(namespace, 14, "reinforce-episode")["checks_passed"], 14)
+
     def test_normalizes_editor_output_without_changing_the_file(self):
         import nbformat
 
@@ -50,7 +74,7 @@ class MaintenanceTests(unittest.TestCase):
             (root / "target.md").write_text("# Target\n", encoding="utf-8")
             readme = root / "README.md"
             readme.write_text(
-                "[Read](target.md)\n\n```python\nactors[i](local[i])\n```\n",
+                "[Read](<target.md>)\n\n```python\nactors[i](local[i])\n```\n",
                 encoding="utf-8",
             )
             with patch.object(marl, "ROOT", root):
@@ -58,6 +82,14 @@ class MaintenanceTests(unittest.TestCase):
                 readme.write_text("[Missing](missing.md)\n", encoding="utf-8")
                 with self.assertRaisesRegex(ValueError, "Broken link"):
                     marl.check_links()
+
+
+class FakeTensor:
+    def tolist(self):
+        return []
+
+    def item(self):
+        return 0.0
 
 
 if __name__ == "__main__":

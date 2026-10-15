@@ -4,10 +4,497 @@
   "torch": "2.11.0+cpu",
   "device": "cpu",
   "hash_encoding": "UTF-8 text with LF line endings, matching Git blobs",
-  "checks_per_engine": 291,
-  "maintenance_tests": 4,
+  "checks_per_engine": 378,
+  "maintenance_tests": 6,
+  "exercises_without_a_numbered_check_counter": 6,
   "script_and_notebook_summaries_match": true,
   "exercises": [
+    {
+      "exercise": "greedy",
+      "source": "Day1/01_greedy_test.ipynb",
+      "source_sha256": "2c9b0f21391e46f162027f34004a307977417c0aa473e5e7095fdd305d51031f",
+      "script_sha256": "e9e01606169470121acc4d658d2700b224a55e3522c6223f77d26244e857f52d",
+      "checks_passed": null,
+      "duration_seconds": {
+        "script": 0.89,
+        "notebook": 6.37
+      },
+      "summary": {
+        "return_A": 0.76,
+        "return_B": 0.6799999999999999,
+        "q_learning_target": 0.6200000000000001,
+        "sarsa_target": 0.08000000000000002,
+        "q_learning_new": 0.51,
+        "sarsa_new": 0.24000000000000002
+      }
+    },
+    {
+      "exercise": "cliff",
+      "source": "Day1/02_cliff_test.ipynb",
+      "source_sha256": "4eb1b618457bbe2183ba73b06c9143895e3279ac303644c6745749e6852856d5",
+      "script_sha256": "b86ef4f0973c772ef610ea89260b3aad779d5fcf162c8c244ce012a2386918fb",
+      "checks_passed": null,
+      "duration_seconds": {
+        "script": 0.68,
+        "notebook": 2.498
+      },
+      "summary": {
+        "success_rate": 1.0,
+        "average_return": 0.76,
+        "reached_goal": true,
+        "entered_cliff": false,
+        "trajectory": [
+          {
+            "step": 1,
+            "cell": [
+              3,
+              0
+            ],
+            "action": 0,
+            "next_cell": [
+              2,
+              0
+            ],
+            "reward": -0.04,
+            "terminated": false,
+            "total": -0.04
+          },
+          {
+            "step": 2,
+            "cell": [
+              2,
+              0
+            ],
+            "action": 3,
+            "next_cell": [
+              2,
+              1
+            ],
+            "reward": -0.04,
+            "terminated": false,
+            "total": -0.08
+          },
+          {
+            "step": 3,
+            "cell": [
+              2,
+              1
+            ],
+            "action": 3,
+            "next_cell": [
+              2,
+              2
+            ],
+            "reward": -0.04,
+            "terminated": false,
+            "total": -0.12
+          },
+          {
+            "step": 4,
+            "cell": [
+              2,
+              2
+            ],
+            "action": 3,
+            "next_cell": [
+              2,
+              3
+            ],
+            "reward": -0.04,
+            "terminated": false,
+            "total": -0.16
+          },
+          {
+            "step": 5,
+            "cell": [
+              2,
+              3
+            ],
+            "action": 3,
+            "next_cell": [
+              2,
+              4
+            ],
+            "reward": -0.04,
+            "terminated": false,
+            "total": -0.2
+          },
+          {
+            "step": 6,
+            "cell": [
+              2,
+              4
+            ],
+            "action": 3,
+            "next_cell": [
+              2,
+              5
+            ],
+            "reward": -0.04,
+            "terminated": false,
+            "total": -0.24000000000000002
+          },
+          {
+            "step": 7,
+            "cell": [
+              2,
+              5
+            ],
+            "action": 1,
+            "next_cell": [
+              3,
+              5
+            ],
+            "reward": 1.0,
+            "terminated": true,
+            "total": 0.76
+          }
+        ],
+        "steps": 7
+      }
+    },
+    {
+      "exercise": "dqn-update",
+      "source": "Day2/03_DQN_update_test.ipynb",
+      "source_sha256": "71d217a94958daaa29579cc8a2b989fef7a07a00d24131510013b0107fd2c74a",
+      "script_sha256": "478b67fe5d99db858a6f2d21cb79ad93cb389a9362ca7bd5f759aa5b6d521eac",
+      "checks_passed": null,
+      "duration_seconds": {
+        "script": 3.977,
+        "notebook": 6.228
+      },
+      "summary": {
+        "q_before": [
+          [
+            0.30000001192092896,
+            0.699999988079071
+          ]
+        ],
+        "q_after": [
+          [
+            0.5,
+            0.699999988079071
+          ]
+        ],
+        "td_target": 0.5,
+        "loss": 0.03999999538064003,
+        "target_gradient_is_none": true,
+        "synchronized": true,
+        "td_target_after_sync": -0.03999999910593033
+      }
+    },
+    {
+      "exercise": "actor-critic",
+      "source": "Day3/04_Actor–Critic_test.ipynb",
+      "source_sha256": "3b82e6be541f6ae13d120c6ae7904b197a3559c0692a01fa94b6052f6ccef57b",
+      "script_sha256": "caa0651e19a6c3f0c157b3aa1fa486f998695cd1082a36b0bc967013480c8c3e",
+      "checks_passed": null,
+      "duration_seconds": {
+        "script": 5.313,
+        "notebook": 7.706
+      },
+      "summary": {
+        "final_start_probs": [
+          0.999983549118042,
+          1.6448344467789866e-05
+        ],
+        "final_start_value": 1.7990202903747559,
+        "average_test_return": 2.0,
+        "long_path_rate": 1.0,
+        "one_trajectory": [
+          [
+            0,
+            0,
+            0.0
+          ],
+          [
+            1,
+            0,
+            2.0
+          ]
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "exercise": "categorical",
+      "source": "Day4/05_Categorical_test.ipynb",
+      "source_sha256": "f66ba45cdc9fd3e67e01a633d0de84d9bdece8d28351eb21ebb1a607d2d67287",
+      "script_sha256": "c939aa0ac241a923c2e612635f2f9c38626c4106455ba3bfa89a8ffd0f6630d4",
+      "checks_passed": null,
+      "duration_seconds": {
+        "script": 4.158,
+        "notebook": 6.126
+      },
+      "summary": {
+        "before_probs": [
+          0.800000011920929,
+          0.20000000298023224
+        ],
+        "after_probs": [
+          0.7187549471855164,
+          0.2812449634075165
+        ],
+        "returns": [
+          2.52,
+          2.8,
+          2.0
+        ]
+      }
+    },
+    {
+      "exercise": "policy-loss",
+      "source": "Day4/06_calculate_loss.ipynb",
+      "source_sha256": "753bf0070915e7cf0c82189382558d0090802ecda64100c13cf8f31769c6cb7b",
+      "script_sha256": "8b1ab8beadc914b0668f1f2715cbf64361c13f6061d27bbb30f7da4975a0c11d",
+      "checks_passed": null,
+      "duration_seconds": {
+        "script": 2.615,
+        "notebook": 4.594
+      },
+      "summary": {
+        "loss_terms": [
+          1.7639999389648438,
+          1.1200000047683716,
+          0.4000000059604645
+        ],
+        "policy_loss": 3.2839999198913574,
+        "requires_grad": false
+      }
+    },
+    {
+      "exercise": "reinforce-episode",
+      "source": "Day4/07_REINFORCE_episode_test.ipynb",
+      "source_sha256": "54afd55cdbb72e57e506724a92c86748be19c8cce32d22a7cd4c1c0b46e8a336",
+      "script_sha256": "c443e122f967dea369d85302e761b0599f3addf1bad33babf0ffab55246bd97d",
+      "checks_passed": 14,
+      "duration_seconds": {
+        "script": 4.135,
+        "notebook": 6.371
+      },
+      "summary": {
+        "checks_passed": 14,
+        "trajectory": [
+          [
+            0,
+            0,
+            0.0,
+            1,
+            false
+          ],
+          [
+            1,
+            1,
+            2.0,
+            null,
+            true
+          ]
+        ],
+        "returns": [
+          1.8,
+          2.0
+        ],
+        "before_probs": [
+          [
+            0.5,
+            0.5
+          ],
+          [
+            0.5,
+            0.5
+          ]
+        ],
+        "after_probs": [
+          [
+            0.5448789000511169,
+            0.45512115955352783
+          ],
+          [
+            0.45512115955352783,
+            0.5448789000511169
+          ]
+        ],
+        "policy_loss": 2.4953298568725586,
+        "gradient": [
+          [
+            -0.8999999761581421,
+            0.8999999761581421
+          ],
+          [
+            0.8999999761581421,
+            -0.8999999761581421
+          ]
+        ]
+      }
+    },
+    {
+      "exercise": "reinforce",
+      "source": "Day4/08_REINFORCE_training_test.ipynb",
+      "source_sha256": "89b2500d560431ab088a5bd808c1be9cd7c785b3de72919cdaa9d3cac977e623",
+      "script_sha256": "eb791a88f83c64416891e7c7fc66689655c56c7d89e44aa7da31d65bf0cb2c7d",
+      "checks_passed": 18,
+      "duration_seconds": {
+        "script": 5.019,
+        "notebook": 7.384
+      },
+      "summary": {
+        "checks_passed": 18,
+        "initial_long_probability": 0.5,
+        "final_long_probability": 0.9945419430732727,
+        "expected_discounted_return": 1.7956335544586182,
+        "sampled_long_count": 496,
+        "sampled_episodes": 500,
+        "sampled_mean_return": 1.7936,
+        "greedy_trajectory": [
+          [
+            0,
+            0,
+            0.0,
+            1,
+            false
+          ],
+          [
+            1,
+            1,
+            2.0,
+            null,
+            true
+          ]
+        ],
+        "greedy_discounted_return": 1.8,
+        "downward_updates": 27
+      }
+    },
+    {
+      "exercise": "baseline",
+      "source": "Day4/09_REINFORCE_baseline_test.ipynb",
+      "source_sha256": "f3cfdef77548e234b9c812265fc292b29d99d7d69b781937725ac8c42ffcd31e",
+      "script_sha256": "9e0d40663dcdb24c7e9e6b9c79ef48165b63674904b60cc8e75eea9c8d0ac7c4",
+      "checks_passed": 15,
+      "duration_seconds": {
+        "script": 5.713,
+        "notebook": 7.62
+      },
+      "summary": {
+        "checks_passed": 15,
+        "initial_long_probability": 0.5,
+        "final_long_probability": 0.9937292337417603,
+        "expected_discounted_return": 1.7949833869934082,
+        "sampled_long_count": 496,
+        "sampled_episodes": 500,
+        "sampled_mean_return": 1.7936,
+        "greedy_trajectory": [
+          [
+            0,
+            0,
+            0.0,
+            1,
+            false
+          ],
+          [
+            1,
+            0,
+            2.0,
+            null,
+            true
+          ]
+        ],
+        "greedy_discounted_return": 1.8,
+        "plain_long_probability": 0.9944961667060852,
+        "plain_downward_updates": 36,
+        "baseline_downward_updates": 0
+      }
+    },
+    {
+      "exercise": "ppo",
+      "source": "Day5/10_PPO_training_test.ipynb",
+      "source_sha256": "6c27916d5475c6f8bd03f0e07f0d042d70ad11a0e77a1e672ef58f71ff840d86",
+      "script_sha256": "a66d0d567cf94ac2a010d5e15b86076e36a808abe767bd3dd3c3301b44fcf913",
+      "checks_passed": 40,
+      "duration_seconds": {
+        "script": 5.865,
+        "notebook": 8.259
+      },
+      "summary": {
+        "checks": [
+          "GAE teaching example",
+          "GAE lambda=0.0",
+          "GAE lambda=1.0",
+          "terminal/truncation mask False",
+          "terminal/truncation mask True",
+          "clip value 1.4/0.4",
+          "clip gradient 1.4/0.4",
+          "clip value 0.6/0.4",
+          "clip gradient 0.6/0.4",
+          "clip value 0.6/-0.4",
+          "clip gradient 0.6/-0.4",
+          "clip value 1.4/-0.4",
+          "clip gradient 1.4/-0.4",
+          "sample collection does not train",
+          "batch has 32 full episodes",
+          "batch transition count",
+          "all sampled trajectories terminate",
+          "actual s1 actions reach terminal reward",
+          "saved targets and probabilities have no gradient",
+          "target uses raw GAE",
+          "initial ratio equals one",
+          "Actor receives nonzero gradient",
+          "Critic receives nonzero gradient",
+          "update changes parameters",
+          "whole-row permutation preserves loss",
+          "KL threshold stops further updates",
+          "all 80 batches recorded",
+          "each batch performs finite updates",
+          "fresh episodes each batch",
+          "probability improves",
+          "Critic tracks s0",
+          "Critic tracks s1",
+          "training metrics finite",
+          "evaluation count",
+          "evaluation parameter freeze",
+          "all evaluation paths terminate",
+          "greedy path takes long route",
+          "greedy path fully terminates",
+          "greedy discounted return",
+          "sample mean agrees with route counts"
+        ],
+        "initial": {
+          "p_long": 0.5,
+          "expected_return": 1.4,
+          "value_s0": 0.0,
+          "value_s1": 0.0
+        },
+        "final": {
+          "p_long": 0.9968709349632263,
+          "expected_return": 1.7974967479705812,
+          "value_s0": 1.7946116924285889,
+          "value_s1": 1.999999761581421
+        },
+        "episodes": 2560,
+        "environment_steps": 4997,
+        "optimizer_steps": 320,
+        "evaluation_long_count": 500,
+        "evaluation_count": 500,
+        "evaluation_mean": 1.8,
+        "greedy_return": 1.8,
+        "greedy_trajectory": [
+          [
+            0,
+            0,
+            0.0,
+            1,
+            false
+          ],
+          [
+            1,
+            0,
+            2.0,
+            null,
+            true
+          ]
+        ]
+      }
+    },
     {
       "exercise": "ctde",
       "source": "Day6/11_CTDE_dataflow_test.ipynb",
@@ -15,8 +502,8 @@
       "script_sha256": "b34fcb919b58ffe52518d9cd4cebe006129fb08b34ae0ddd814c05285fabb72d",
       "checks_passed": 32,
       "duration_seconds": {
-        "script": 4.574,
-        "notebook": 7.793
+        "script": 4.255,
+        "notebook": 6.298
       },
       "summary": {
         "checks_passed": 32,
@@ -71,8 +558,8 @@
       "script_sha256": "7bb756cf8eb293d27ca6d2be0774860d60fefd5a6fad6ddd2d392845d7efc056",
       "checks_passed": 56,
       "duration_seconds": {
-        "script": 7.857,
-        "notebook": 9.769
+        "script": 6.968,
+        "notebook": 9.118
       },
       "summary": {
         "checks": [
@@ -291,8 +778,8 @@
       "script_sha256": "36e7304999e6d60ee8dbeb08bd25942c5a1482321f6d8d024c5e8526deede38e",
       "checks_passed": 41,
       "duration_seconds": {
-        "script": 7.72,
-        "notebook": 10.597
+        "script": 7.576,
+        "notebook": 10.428
       },
       "summary": {
         "check_count": 41,
@@ -423,8 +910,8 @@
       "script_sha256": "7da222e347fe5365ff4efcacdb22feddc00bf33e7d235581c748cb59924945d4",
       "checks_passed": 36,
       "duration_seconds": {
-        "script": 4.519,
-        "notebook": 6.206
+        "script": 4.272,
+        "notebook": 6.102
       },
       "summary": {
         "checks_passed": 36,
@@ -475,8 +962,8 @@
       "script_sha256": "f6c7a682ef0a594c2b10916fec82424d466b7e7db69e2547bcc2162d2e8aeb24",
       "checks_passed": 23,
       "duration_seconds": {
-        "script": 7.948,
-        "notebook": 10.318
+        "script": 7.813,
+        "notebook": 10.045
       },
       "summary": {
         "checks_passed": 23,
@@ -673,8 +1160,8 @@
       "script_sha256": "5963b3103fe046c5f8b4f2a726eb96d993e196cef67ed7ca18eec8ccb6d157bb",
       "checks_passed": 24,
       "duration_seconds": {
-        "script": 19.25,
-        "notebook": 21.787
+        "script": 18.188,
+        "notebook": 19.318
       },
       "summary": {
         "seed": 7,
@@ -769,8 +1256,8 @@
       "script_sha256": "d35be1f61bc261232887834fcdc213b6ed00a9773b0d5e43c668a262ab73b6b2",
       "checks_passed": 39,
       "duration_seconds": {
-        "script": 7.703,
-        "notebook": 9.482
+        "script": 7.33,
+        "notebook": 8.494
       },
       "summary": {
         "seed": 7,
@@ -927,8 +1414,8 @@
       "script_sha256": "828ac8352959773e1f9ef0a289f54c437b5c60f489a0240e70fc7a5dc95fd4c0",
       "checks_passed": 40,
       "duration_seconds": {
-        "script": 9.493,
-        "notebook": 11.302
+        "script": 9.444,
+        "notebook": 11.164
       },
       "summary": {
         "seed": 7,

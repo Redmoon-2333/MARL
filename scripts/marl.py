@@ -1,9 +1,10 @@
-"""Maintain and run the Day6-Day10 MARL learning exercises."""
+"""Maintain and run the Day1-Day10 reinforcement learning exercises."""
 
 import argparse
 import ast
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -21,11 +22,21 @@ ROOT = Path(__file__).resolve().parents[1]
 class Exercise:
     key: str
     path: str
-    checks: int
+    checks: int | None
     title: str
 
 
 EXERCISES = (
+    Exercise("greedy", "Day1/01_greedy_test.ipynb", None, "Returns and tabular TD"),
+    Exercise("cliff", "Day1/02_cliff_test.ipynb", None, "Complete cliff trajectory"),
+    Exercise("dqn-update", "Day2/03_DQN_update_test.ipynb", None, "One DQN update"),
+    Exercise("actor-critic", "Day3/04_Actor\u2013Critic_test.ipynb", None, "One-step Actor-Critic"),
+    Exercise("categorical", "Day4/05_Categorical_test.ipynb", None, "Categorical policy gradient"),
+    Exercise("policy-loss", "Day4/06_calculate_loss.ipynb", None, "Paired policy loss arithmetic"),
+    Exercise("reinforce-episode", "Day4/07_REINFORCE_episode_test.ipynb", 14, "One complete episode"),
+    Exercise("reinforce", "Day4/08_REINFORCE_training_test.ipynb", 18, "REINFORCE training"),
+    Exercise("baseline", "Day4/09_REINFORCE_baseline_test.ipynb", 15, "Fixed baseline comparison"),
+    Exercise("ppo", "Day5/10_PPO_training_test.ipynb", 40, "PPO and GAE training"),
     Exercise("ctde", "Day6/11_CTDE_dataflow_test.ipynb", 32, "CTDE data flow"),
     Exercise("mappo", "Day6/12_MAPPO_training_test.ipynb", 56, "One-step cooperation"),
     Exercise("communication", "Day6/13_communication_training_test.ipynb", 41, "Discrete messages"),
@@ -111,10 +122,115 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def summarize(namespace, expected):
+def legacy_summary(key, namespace):
+    """Read existing outputs without editing the learner's original exercises."""
+    n = namespace
+    if key == "greedy":
+        result = {name: n[name] for name in (
+            "return_A", "return_B", "q_learning_target", "sarsa_target",
+            "q_learning_new", "sarsa_new",
+        )}
+        for name, expected in (
+            ("return_A", 0.76), ("return_B", 0.68),
+            ("q_learning_new", 0.51), ("sarsa_new", 0.24),
+        ):
+            if not math.isclose(result[name], expected, abs_tol=1e-6):
+                raise ValueError(f"{key}: unexpected {name}={result[name]}")
+        return result
+    if key == "cliff":
+        result = {name: n[name] for name in (
+            "success_rate", "average_return", "reached_goal", "entered_cliff",
+        )}
+        result.update(trajectory=n["trajectory"], steps=len(n["trajectory"]))
+        if (not result["reached_goal"] or result["entered_cliff"] or result["steps"] != 7
+                or result["success_rate"] != 1
+                or not math.isclose(result["average_return"], 0.76, abs_tol=1e-6)):
+            raise ValueError("cliff: expected a safe seven-step path to the real goal.")
+        return result
+    if key == "dqn-update":
+        result = {
+            "q_before": n["q_values"].detach().tolist(),
+            "q_after": n["q_after"].detach().tolist(),
+            "td_target": n["td_target"].item(),
+            "loss": n["loss"].item(),
+            "target_gradient_is_none": n["target"].weight.grad is None,
+            "synchronized": n["same_online"] and n["same_target_now"],
+            "td_target_after_sync": n["td_target_after_sync"].item(),
+        }
+        for actual, expected in (
+            (result["q_before"][0][0], 0.3), (result["q_after"][0][0], 0.5),
+            (result["loss"], 0.04), (result["td_target_after_sync"], -0.04),
+        ):
+            if not math.isclose(actual, expected, abs_tol=1e-6):
+                raise ValueError("dqn-update: update or synchronization output differs.")
+        if not result["target_gradient_is_none"] or not result["synchronized"]:
+            raise ValueError("dqn-update: target gradient or synchronization failed.")
+        return result
+    if key == "actor-critic":
+        result = {name: n[name] for name in (
+            "final_start_probs", "final_start_value", "average_test_return",
+            "long_path_rate", "one_trajectory", "unchanged",
+        )}
+        if (result["final_start_probs"][0] < 0.9 or result["long_path_rate"] != 1
+                or not math.isclose(result["final_start_value"], 1.8, abs_tol=0.05)
+                or not result["unchanged"]):
+            raise ValueError("actor-critic: policy, value or frozen evaluation failed.")
+        return result
+    if key == "categorical":
+        result = {
+            "before_probs": n["distribution"].probs.detach().tolist(),
+            "after_probs": n["new_distribution"].probs.detach().tolist(),
+            "returns": n["returns"],
+        }
+        if result["after_probs"][1] <= result["before_probs"][1] or any(
+            not math.isclose(actual, expected, abs_tol=1e-6)
+            for actual, expected in zip(result["returns"], (2.52, 2.8, 2.0), strict=True)
+        ):
+            raise ValueError("categorical: action probability or reward-to-go failed.")
+        return result
+    if key == "policy-loss":
+        result = {
+            "loss_terms": n["loss_terms"].tolist(),
+            "policy_loss": n["policy_loss"].item(),
+            "requires_grad": n["policy_loss"].requires_grad,
+        }
+        if not math.isclose(result["policy_loss"], 3.284, abs_tol=1e-6) or result["requires_grad"]:
+            raise ValueError("policy-loss: expected paired arithmetic with fixed input tensors.")
+        return result
+    if key == "reinforce-episode":
+        return {
+            "checks_passed": n["checks"], "trajectory": n["trajectory"], "returns": n["returns"],
+            "before_probs": n["before_probs"].tolist(), "after_probs": n["after_probs"].tolist(),
+            "policy_loss": n["policy_loss"].item(), "gradient": n["gradient"].tolist(),
+        }
+    if key in ("reinforce", "baseline"):
+        history = n["history"] if key == "reinforce" else n["baseline_history"]
+        result = {
+            "checks_passed": n["checks"], "initial_long_probability": history["long_probs"][0],
+            "final_long_probability": n["final_p"],
+            "expected_discounted_return": history["expected_returns"][-1],
+            "sampled_long_count": n["eval_long_count"], "sampled_episodes": n["eval_episodes"],
+            "sampled_mean_return": n["eval_mean"], "greedy_trajectory": n["greedy_trajectory"],
+            "greedy_discounted_return": n["greedy_return"],
+        }
+        if key == "reinforce":
+            result["downward_updates"] = n["downward_updates"]
+        else:
+            result.update(
+                plain_long_probability=n["plain_history"]["long_probs"][-1],
+                plain_downward_updates=n["plain_history"]["downward_updates"],
+                baseline_downward_updates=history["downward_updates"],
+            )
+        return result
+    raise ValueError(f"No output adapter for {key!r}.")
+
+
+def summarize(namespace, expected, key=None):
     summary = namespace.get("summary", namespace.get("result"))
     if not isinstance(summary, dict):
-        raise ValueError("Exercise did not produce a summary/result dictionary.")
+        summary = legacy_summary(key, namespace)
+    if not summary:
+        raise ValueError("Exercise produced an empty summary.")
     actual = summary.get("checks_passed", summary.get("check_count"))
     if actual is None and isinstance(summary.get("checks"), list):
         actual = len(summary["checks"])
@@ -147,7 +263,10 @@ def save_figures(*args, **kwargs):
 plt.show = save_figures
 namespace = runpy.run_path(sys.argv[1], run_name="__main__")
 save_figures()
-result = namespace.get("summary", namespace.get("result"))
+sys.path.insert(0, str(Path(sys.argv[1]).parents[1] / "scripts"))
+from marl import summarize
+expected = None if sys.argv[4] == "None" else int(sys.argv[4])
+result = summarize(namespace, expected, sys.argv[3])
 print("\nMARL_RUN_JSON=" + json.dumps(result, ensure_ascii=True, allow_nan=False))
 '''
 
@@ -162,7 +281,8 @@ def execute_script(exercise, output, timeout):
     ).open("w", encoding="utf-8") as stderr:
         process = subprocess.run(
             [sys.executable, "-u", "-c", SCRIPT_BOOTSTRAP,
-             str((ROOT / exercise.path).with_suffix(".py")), str(output)],
+             str((ROOT / exercise.path).with_suffix(".py")), str(output),
+             exercise.key, str(exercise.checks)],
             cwd=ROOT, env=environment, stdout=stdout, stderr=stderr,
             timeout=timeout,
         )
@@ -197,9 +317,12 @@ def execute_notebook(exercise, output, timeout):
         "matplotlib.use('module://matplotlib_inline.backend_inline')"
     ))
     notebook.cells.append(nbformat.v4.new_code_cell(
-        "import json\n"
+        "import json, sys\n"
+        f"sys.path.insert(0, {str(ROOT / 'scripts')!r})\n"
+        "import marl as _maintenance\n"
         f"print('{RESULT_MARKER}' + json.dumps("
-        "globals().get('summary', globals().get('result')), ensure_ascii=True, allow_nan=False))"
+        f"_maintenance.summarize(globals(), {exercise.checks!r}, {exercise.key!r}), "
+        "ensure_ascii=True, allow_nan=False))"
     ))
     try:
         NotebookClient(
@@ -263,13 +386,15 @@ def run_exercises(args):
         if row["status"] == "failed":
             raise RuntimeError(row["error"])
     print(f"PASS {len(results)} exercises, "
-          f"{sum(row['expected_checks'] for row in results)} embedded checks; {report_path}")
+          f"{sum(row['expected_checks'] or 0 for row in results)} counted embedded checks; "
+          f"{sum(row['expected_checks'] is None for row in results)} output-validated exercises; "
+          f"{report_path}")
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
-    subparsers.add_parser("list", help="List the eight maintained exercises.")
+    subparsers.add_parser("list", help="List all eighteen maintained exercises.")
     subparsers.add_parser("check", help="Validate notebook/script consistency and local links.")
     subparsers.add_parser("export", help="Create missing scripts; preserve matching existing scripts.")
     runner = subparsers.add_parser("run", help="Run complete default exercises in isolated processes/kernels.")
@@ -282,7 +407,9 @@ def main():
         parser.error("Do not use python -O: exercises rely on assertions.")
     if args.command == "list":
         for exercise in EXERCISES:
-            print(f"{exercise.key:25s} {exercise.path} ({exercise.checks} checks)")
+            validation = (f"{exercise.checks} counted checks" if exercise.checks is not None
+                          else "execution and output validation")
+            print(f"{exercise.key:25s} {exercise.path} ({validation})")
     elif args.command == "check":
         validate_exercises()
     elif args.command == "export":

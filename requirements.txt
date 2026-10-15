@@ -1,4 +1,4 @@
-# Install the CPU PyTorch wheel separately; see MARL_README.md / README.md.
+# Install the CPU PyTorch wheel separately; see README.md.
 torch==2.11.0
 matplotlib==3.10.0
 nbformat==5.10.4

@@ -541,7 +541,7 @@ $$
 6. Foerster 等：[Learning to Communicate with Deep Multi-Agent Reinforcement Learning](https://arxiv.org/abs/1605.06676)，2016。对应通信决策及离散、可微通道的区别。
 7. [PyTorch 2.11：概率分布](https://docs.pytorch.org/docs/2.11/distributions.html)、[GRUCell](https://docs.pytorch.org/docs/2.11/generated/torch.nn.GRUCell.html) 与 [no_grad](https://docs.pytorch.org/docs/2.11/generated/torch.no_grad.html)。对应实际动作的 `log_prob`、隐藏状态和梯度模式。
 
-上一篇：[Day5 · PPO：从概率比到训练闭环](https://redmoon-2333.github.io/2026/10/07/rl-day5-ppo-training/)；系列入口：[强化学习](../README.md)。
+上一篇：[Day5 · PPO：从概率比到训练闭环](Day5.md)；系列入口：[强化学习](README.md)。
 
 ## 完整代码入口
 
