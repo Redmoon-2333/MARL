@@ -16,8 +16,8 @@ jobs:
     env:
       MPLBACKEND: Agg
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
           cache: pip
@@ -35,7 +35,7 @@ jobs:
         run: python scripts/marl.py run all --engine script --output runs/ci
       - name: Execute recurrent communication notebook
         run: python scripts/marl.py run recurrent-communication --engine notebook --output runs/notebook
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: marl-cpu-results
